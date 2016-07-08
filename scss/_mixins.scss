@@ -1,0 +1,236 @@
+@mixin transition($d) {
+  transition-duraton: $d;
+}
+@mixin delay($d) {
+  transition-delay: $d;
+}
+@mixin transform($t) {
+  transform: $t;
+}
+@mixin transform-origin($to) {
+  transform-origin: $to;
+}
+@mixin translate3d($x:0, $y:0, $z: 0) {
+  transform: translate3d($x, $y, $z);
+}
+@mixin animation($a) {
+  animation: $a;
+}
+@mixin scrollable() {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+@mixin flexbox() {
+  display: flex;
+}
+@mixin flexbox-inline() {
+  display: inline-flex;
+}
+@mixin flex-wrap($fw) {
+  flex-wrap: $fw;
+}
+@mixin flex-shrink($fs) {
+  flex-shrink: $fs;
+}
+@mixin justify-content($jc) {
+  justify-content: $jc;
+}
+@mixin align-items($ai) {
+  align-items: $ai;
+}
+@mixin align-content($ac) {
+  align-content: $ac;
+}
+@mixin align-self($as) {
+  align-self: $as;
+}
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+@mixin hairline($pos, $col) {
+  @if $pos == top {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: auto;
+      right: auto;
+      height: 1px;
+      width: 100%;
+      background-color: $col;
+      display: block;
+      z-index: 15;
+      @include transform-origin(50% 0%);
+      html.pixel-ratio-2 &{
+        @include transform(scaleY(0.5));
+      }
+      html.pixel-ratio-3 &{
+        @include transform(scaleY(0.33));
+      }
+    }
+  }
+  @if $pos == left {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: auto;
+      right: auto;
+      width: 1px;
+      height: 100%;
+      background-color: $col;
+      display: block;
+      z-index: 15;
+      @include transform-origin(0% 50%);
+      html.pixel-ratio-2 &{
+        @include transform(scaleX(0.5));
+      }
+      html.pixel-ratio-3 &{
+        @include transform(scaleX(0.33));
+      }
+    }
+  }
+  @if $pos == bottom {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: auto;
+      top: auto;
+      height: 1px;
+      width: 100%;
+      background-color: $col;
+      display: block;
+      z-index: 15;
+      @include transform-origin(50% 100%);
+      html.pixel-ratio-2 &{
+        @include transform(scaleY(0.5));
+      }
+      html.pixel-ratio-3 &{
+        @include transform(scaleY(0.33));
+      }
+    }
+  }
+  @if $pos == right {
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      left: auto;
+      bottom: auto;
+      width: 1px;
+      height: 100%;
+      background-color: $col;
+      display: block;
+      z-index: 15;
+      @include transform-origin(100% 50%);
+      html.pixel-ratio-2 &{
+        @include transform(scaleX(0.5));
+      }
+      html.pixel-ratio-3 &{
+        @include transform(scaleX(0.33));
+      }
+    }
+  }
+}
+
+@mixin hairline-remove($pos) {
+  @if $pos != left and $pos != top {
+    &:after {
+      display: none;
+    }
+  }
+  @if $pos != right and $pos != bottom {
+    &:before {
+      display: none;
+    }
+  }
+}
+
+@mixin hairline-color($pos, $col) {
+  @if $pos != left and $pos != top {
+    &:after {
+      background-color: $col;
+    }
+  }
+  @if $pos != right and $pos != bottom {
+    &:before {
+      background-color: $col;
+    }
+  }
+}
+
+@mixin encoded-svg-background($svg) {
+  $url: 'encodeURIComponent(#{$svg})';
+  background-image: url("data:image/svg+xml;charset=utf-8,#{$url}");
+}
+
+@mixin preserve3d() {
+  transform-style: preserve-3d;
+}
+
+@mixin depth($level: 1) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  }
+  @if $level == 2 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  @if $level == 3 {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+  @if $level == 4 {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+  @if $level == 5 {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  }
+}
+
+@mixin active-highlight($color: rgba(255,255,255,.15)) {
+  &:before {
+    content: '';
+    width: 152%;
+    height: 152%;
+    position: absolute;
+    left: -26%;
+    top: -26%;
+    background-image: radial-gradient(circle at center, $color 66%, rgba(red($color),green($color),blue($color),0) 66%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    opacity: 0;
+    pointer-events: none;
+    @include transition(600ms);
+  }
+  html:not(.watch-active-state) &:active:before, &.active-state:before {
+    opacity: 1;
+    @include transition(150ms);
+  }
+}
+@mixin active-highlight-color($color) {
+  &:before {
+    background-image: radial-gradient(circle at center, $color 66%, rgba(red($color),green($color),blue($color),0) 66%);
+  }
+}
+
+@mixin no-scrollbar() {
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-appearance: none;
+    opacity: 0 !important;
+  }
+}
