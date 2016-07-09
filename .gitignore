@@ -1,3 +1,5 @@
-less
 .idea
-scss/.sass-cache
+.sass-cache
+node_modules
+gruntfile.js
+img

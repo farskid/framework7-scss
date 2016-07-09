@@ -1,5 +1,5 @@
 @mixin transition($d) {
-  transition-duraton: $d;
+  transition-duration: $d;
 }
 @mixin delay($d) {
   transition-delay: $d;

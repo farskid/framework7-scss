@@ -78,7 +78,7 @@
     }
     .floating-label {
       @include transform-origin(left);
-      @include transform(scale(16/12) translateY(21px));
+      @include transform(scale(1.333333333) translateY(21px));
       color: rgba(0, 0, 0, 0.35);
       width: auto;
       max-width: 75%;
@@ -335,7 +335,7 @@ textarea.resizable {
   }
 
   input[type="range"]::-ms-fill-lower {
-    background: @themeColor;
+    background: $themeColor;
   }
   input[type="range"]::-ms-fill-upper {
     background: #b7b8b7;
