@@ -13,3 +13,6 @@ Right now there is no global configure file in the project but it will be soon!
 This project's aim is to help developers of this framework if their choice has not been `Less` or want more options in their projects.
 
 This library has been created to be used in developments and open source projects.
+
+###Usage
+Just include `scss` folder inside your project and build it using any automating techniques such as `grunt` or `gulp` or just use the CLI to compile sass files into plain css. 
